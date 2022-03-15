@@ -112,7 +112,7 @@ header #logo img {
 }
 
 #swagger-ui.api-platform .info .title {
-  color: #3caab5;
+  color: #0c85c1;
 }
 
 #swagger-ui.api-platform .info {
@@ -125,7 +125,7 @@ header #logo img {
 /** METHODS BLOCKS **/
 
 #swagger-ui.api-platform .opblock.opblock-get .opblock-summary-method {
-  background-color: #3caab5;
+  background-color: #0c85c1;
 }
 
 #swagger-ui.api-platform .opblock.opblock-put .opblock-summary-method {
@@ -145,7 +145,7 @@ header #logo img {
 }
 
 #swagger-ui.api-platform .opblock.opblock-get .opblock-summary {
-  border-color: #3caab5;
+  border-color: #0c85c1;
 }
 
 #swagger-ui.api-platform .opblock.opblock-put .opblock-summary {
@@ -231,8 +231,8 @@ header #logo img {
 /** BUTTONS **/
 
 #swagger-ui.api-platform .btn.execute {
-  background-color: #3caab5;
-  border-color: #3caab5;
+  background-color: #0c85c1;
+  border-color: #0c85c1;
   animation: none;
   transition: all ease .3s;
 }

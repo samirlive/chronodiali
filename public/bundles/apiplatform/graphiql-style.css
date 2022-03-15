@@ -41,7 +41,7 @@ body {
 }
 
 #graphiql .graphiql-container .doc-explorer-title-bar, #graphiql .graphiql-container .history-title-bar {
-    background: #3CAAB5;
+    background: #0c85c1;
     height: 69px;
     display: flex;
     align-items: center;
