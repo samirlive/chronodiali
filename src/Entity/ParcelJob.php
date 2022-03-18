@@ -39,7 +39,7 @@ class ParcelJob
     #[ORM\Column(type: 'float')]
     private $weight;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $size;
 
     public function getId(): ?int

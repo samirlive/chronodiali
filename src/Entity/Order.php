@@ -8,7 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: OrderRepository::class)]
 #[ORM\Table(name: '`order`')]
-#[ApiResource]
+#[ApiResource(
+    graphql: ['item_query', 'create','collection_query']
+)]
 class Order
 {
     #[ORM\Id]
@@ -62,6 +64,7 @@ class Order
         $this->fromExpediter = new Customer();
         $this->toRecipient = new Customer();
         $this->parcel_job = new ParcelJob();
+        
     }
 
     public function getCreatedAt(): ?\DateTimeImmutable

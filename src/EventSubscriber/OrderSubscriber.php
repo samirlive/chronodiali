@@ -39,7 +39,7 @@ final class OrderSubscriber implements EventSubscriberInterface
         
 
 
-        if (!$order instanceof Order || Request::METHOD_GET !== $method) {
+        if (!$order instanceof Order || Request::METHOD_POST !== $method) {
             return;
         }
         

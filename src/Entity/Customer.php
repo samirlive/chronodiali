@@ -15,26 +15,34 @@ class Customer
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $name;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $phone_number;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $email;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $address1;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $address2;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $country;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $postcode;
+
+
+    public function __construct()
+    {
+
+        $this->country = "MA";
+        
+    }
 
     public function getId(): ?int
     {
