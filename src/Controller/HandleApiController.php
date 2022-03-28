@@ -1,54 +1,20 @@
 <?php
-// api/src/EventSubscriber/OrderMailSubscriber.php
 
-namespace App\EventSubscriber;
+namespace App\Controller;
 
-use ApiPlatform\Core\EventListener\EventPriorities;
-use App\Entity\Customer;
 use App\Entity\Order;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\ViewEvent;
-use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\Mime\Email;
+use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
-final class OrderSubscriber implements EventSubscriberInterface
+class HandleApiController extends AbstractController
 {
-    
-    private $em;
-    public function __construct(EntityManagerInterface $em)
+    #[Route('/handle/api', name: 'app_handle_api')]
+    public function index(ManagerRegistry $doctrine): Response
     {
-        $this->em = $em;
-    }
-
-    public static function getSubscribedEvents()
-    {
-        return [
-            KernelEvents::VIEW => ['postDataApi', EventPriorities::POST_WRITE],
-        ];
-    }
-
-    public function postDataApi(ViewEvent $event): void
-    {
-        $order = $event->getControllerResult();
-       
-        $method = $event->getRequest()->getMethod();
-
-        
-
-
-        if (!$order instanceof Order || Request::METHOD_GET !== $method) {
-            return;
-        }
-        
-       //GRAPHQL request
-
-
-       
-
-
+        //GRAPHQL request
         $query = <<<'GRAPHQL'
         {
             shipments {
@@ -143,15 +109,30 @@ $ordersJsonDecoded = json_decode($response);
 //dd($orders[0]["node"]["fulfillmentOrderColisRecords"]["edges"][0]["node"]["packageId"]);
 
     foreach($ordersJsonDecoded->data->shipments->edges as $singleOrder){
+
+/*
+        $order = new Order();
+
+        // les setters
+
+
+
+        $doctrine->getManager()->persist($order);
+        $doctrine->getManager()->flush();
+*/
       dump($singleOrder);
+
+
+      
     }
 
-    die;
+    
+
+    $response = new JsonResponse("DONE");
+
+    return $response;
 
     }
 
-
- 
-
-
+    
 }

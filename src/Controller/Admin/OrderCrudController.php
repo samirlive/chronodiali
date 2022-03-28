@@ -60,8 +60,8 @@ class OrderCrudController extends AbstractCrudController
             BooleanField::new('parcel_job.is_pickup_required'),
             Field::new('parcel_job.pickup_service_level'),
             Field::new('parcel_job.pickup_address_id')->onlyOnForms(),
-            DateTimeField::new('parcel_job.pickup_date')->onlyOnForms(),
-            DateTimeField::new('parcel_job.delivery_start_date')->onlyOnForms(),
+            Field::new('parcel_job.pickup_date'),
+            Field::new('parcel_job.delivery_start_date'),
 
             NumberField::new('parcel_job.weight'),
             ChoiceField::new('parcel_job.size')->setChoices([
