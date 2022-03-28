@@ -33,15 +33,13 @@ body {
     content: "";
     width: 185px;
     height: 50px;
-    padding: 0 20px;
-    background-size: 180px;
     background: url("./logo-header.svg") no-repeat;
     vertical-align: middle;
     border-right: 1px solid white;
 }
 
 #graphiql .graphiql-container .doc-explorer-title-bar, #graphiql .graphiql-container .history-title-bar {
-    background: #0c85c1;
+    background: #3CAAB5;
     height: 69px;
     display: flex;
     align-items: center;
@@ -59,7 +57,7 @@ body {
 }
 
 #graphiql .graphiql-container .topBarWrap {
-    background-color: #1B9BDB;
+    background-color: #288690;
 }
 
 #graphiql .graphiql-container .history-contents, #graphiql .graphiql-container .doc-explorer-contents {
@@ -117,5 +115,5 @@ body {
 #graphiql .graphiql-container .toolbar-select-options>li:hover,
 #graphiql .graphiql-container .history-contents>p:hover,
 #graphiql .graphiql-container .history-contents>p:active {
-    background: #1B9BDB;
+    background: #288690;
 }

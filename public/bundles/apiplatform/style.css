@@ -19,7 +19,7 @@ body {
 
 header:before {
   content: "";
-  background-color: #1B9BDB;
+  background-color: #288690;
   height: 70px;
   width: 100%;
   text-align: center;
@@ -32,14 +32,14 @@ header:before {
 header #logo {
   position: fixed;
   top : 35px;
-  left: 40px;
+  right: 40px;
   z-index: 102;
   transform: translateY(-50%);
 }
 
 header #logo img {
   height: 50px;
-  
+  background-color: rgba(40, 134, 144, .4)
 }
 
 /** WEBBY AND WEB **/
@@ -48,7 +48,6 @@ header #logo img {
   right: 0;
   z-index: 101;
   position: fixed;
-  display: none;
 }
 
 .web {
@@ -112,7 +111,7 @@ header #logo img {
 }
 
 #swagger-ui.api-platform .info .title {
-  color: #0c85c1;
+  color: #3caab5;
 }
 
 #swagger-ui.api-platform .info {
@@ -125,7 +124,7 @@ header #logo img {
 /** METHODS BLOCKS **/
 
 #swagger-ui.api-platform .opblock.opblock-get .opblock-summary-method {
-  background-color: #0c85c1;
+  background-color: #3caab5;
 }
 
 #swagger-ui.api-platform .opblock.opblock-put .opblock-summary-method {
@@ -145,7 +144,7 @@ header #logo img {
 }
 
 #swagger-ui.api-platform .opblock.opblock-get .opblock-summary {
-  border-color: #0c85c1;
+  border-color: #3caab5;
 }
 
 #swagger-ui.api-platform .opblock.opblock-put .opblock-summary {
@@ -231,15 +230,15 @@ header #logo img {
 /** BUTTONS **/
 
 #swagger-ui.api-platform .btn.execute {
-  background-color: #0c85c1;
-  border-color: #0c85c1;
+  background-color: #3caab5;
+  border-color: #3caab5;
   animation: none;
   transition: all ease .3s;
 }
 
 #swagger-ui.api-platform .btn.execute:hover {
-  background-color: #1B9BDB;
-  border-color: #1B9BDB;
+  background-color: #288690;
+  border-color: #288690;
 }
 
 #swagger-ui.api-platform .execute-wrapper {

@@ -44,6 +44,11 @@ final class OrderSubscriber implements EventSubscriberInterface
         }
         
        //GRAPHQL request
+
+
+       
+
+
         $query = <<<'GRAPHQL'
         {
             shipments {
