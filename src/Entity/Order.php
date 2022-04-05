@@ -18,40 +18,41 @@ class Order
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
-    private $createdAt;
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    public $createdAt;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    private $description;
-
-
+    public $description;
 
     #[ORM\OneToOne(targetEntity: Customer::class, cascade: ['persist', 'remove'])]
-    private $toRecipient;
+    public $toRecipient;
 
     #[ORM\OneToOne(targetEntity: Customer::class, cascade: ['persist', 'remove'])]
-    private $fromExpediter;
+    public $fromExpediter;
 
     #[ORM\OneToOne(targetEntity: ReferenceOrder::class, cascade: ['persist', 'remove'])]
-    private $reference;
+    public $reference;
 
     #[ORM\OneToOne(targetEntity: ParcelJob::class, cascade: ['persist', 'remove'])]
-    private $parcel_job;
+    public $parcel_job;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    private $restApiQuery;
+    public $restApiQuery;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    private $graphqlApiQuery;
+    public $graphqlApiQuery;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $service_type;
+    public $service_type;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $service_level;
+    public $service_level;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $requested_tracking_number;
+    public $requested_tracking_number;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    public $internalReference;
 
     public function getId(): ?int
     {
@@ -60,19 +61,19 @@ class Order
 
     public function __construct()
     {
-        $this->createdAt = new \DateTimeImmutable();
-        $this->fromExpediter = new Customer();
+        //$this->createdAt = new \DateTimeImmutable();
+       /* $this->fromExpediter = new Customer();
         $this->toRecipient = new Customer();
-        $this->parcel_job = new ParcelJob();
+        $this->parcel_job = new ParcelJob();*/
         
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(?\DateTimeImmutable $createdAt): self
+    public function setCreatedAt($createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -196,6 +197,18 @@ class Order
     public function setRequestedTrackingNumber(?string $requested_tracking_number): self
     {
         $this->requested_tracking_number = $requested_tracking_number;
+
+        return $this;
+    }
+
+    public function getInternalReference(): ?string
+    {
+        return $this->internalReference;
+    }
+
+    public function setInternalReference(string $internalReference): self
+    {
+        $this->internalReference = $internalReference;
 
         return $this;
     }

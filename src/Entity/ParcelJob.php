@@ -16,31 +16,51 @@ class ParcelJob
     private $id;
 
     #[ORM\Column(type: 'boolean', nullable: true)]
-    private $is_pickup_required;
+    public $is_pickup_required;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $pickup_service_type;
+    public $pickup_service_type;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $pickup_service_level;
+    public $pickup_service_level;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    private $pickup_address_id;
+    public $pickup_address_id;
 
-    #[ORM\Column(type: 'date_immutable', nullable: true)]
-    private $pickup_date;
+    #[ORM\Column(type: 'string', nullable: true)]
+    public $pickup_date;
 
-    #[ORM\Column(type: 'date_immutable', nullable: true)]
-    private $delivery_start_date;
+    #[ORM\Column(type: 'string', nullable: true)]
+    public $delivery_start_date;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    private $delivery_instructions;
+    public $delivery_instructions;
 
     #[ORM\Column(type: 'float')]
     private $weight;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $size;
+
+    #[ORM\OneToOne(mappedBy: 'parcel_job', targetEntity: Data::class, cascade: ['persist', 'remove'])]
+    private $data;
+
+    #[ORM\OneToOne(mappedBy: 'parcel_job', targetEntity: PickupTimeslot::class, cascade: ['persist', 'remove'])]
+    public $pickup_timeslot;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    public $pickup_instructions;
+
+    #[ORM\OneToOne(inversedBy: 'parcelJob', targetEntity: DeliveryTimeslot::class, cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    public $delivery_timeslot;
+
+    #[ORM\OneToOne(inversedBy: 'parcelJob', targetEntity: Dimension::class, cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    public $dimensions;
+
+    #[ORM\Column(type: 'array')]
+    public $items = [];
 
     public function getId(): ?int
     {
@@ -95,24 +115,24 @@ class ParcelJob
         return $this;
     }
 
-    public function getPickupDate(): ?\DateTimeImmutable
+    public function getPickupDate(): ?string 
     {
         return $this->pickup_date;
     }
 
-    public function setPickupDate(?\DateTimeImmutable $pickup_date): self
+    public function setPickupDate(?string  $pickup_date): self
     {
         $this->pickup_date = $pickup_date;
 
         return $this;
     }
 
-    public function getDeliveryStartDate(): ?\DateTimeImmutable
+    public function getDeliveryStartDate(): ?string 
     {
         return $this->delivery_start_date;
     }
 
-    public function setDeliveryStartDate(?\DateTimeImmutable $delivery_start_date): self
+    public function setDeliveryStartDate(?string  $delivery_start_date): self
     {
         $this->delivery_start_date = $delivery_start_date;
 
@@ -151,6 +171,83 @@ class ParcelJob
     public function setSize(string $size): self
     {
         $this->size = $size;
+
+        return $this;
+    }
+
+    public function getData(): ?Data
+    {
+        return $this->data;
+    }
+
+    public function setData(Data $data): self
+    {
+        // set the owning side of the relation if necessary
+        if ($data->getParcelJob() !== $this) {
+            $data->setParcelJob($this);
+        }
+
+        $this->data = $data;
+
+        return $this;
+    }
+
+    public function getPickupTimeslot(): ?PickupTimeslot
+    {
+        return $this->pickup_timeslot;
+    }
+
+    public function setPickupTimeslot(PickupTimeslot $pickup_timeslot): self
+    {
+        $this->pickup_timeslot = $pickup_timeslot;
+
+        return $this;
+    }
+
+    public function getPickupInstructions(): ?string
+    {
+        return $this->pickup_instructions;
+    }
+
+    public function setPickupInstructions(string $pickup_instructions): self
+    {
+        $this->pickup_instructions = $pickup_instructions;
+
+        return $this;
+    }
+
+    public function getDeliveryTimeslot(): ?DeliveryTimeslot
+    {
+        return $this->delivery_timeslot;
+    }
+
+    public function setDeliveryTimeslot($delivery_timeslot): self
+    {
+        $this->delivery_timeslot = $delivery_timeslot;
+
+        return $this;
+    }
+
+    public function getDimensions(): ?Dimension
+    {
+        return $this->dimensions;
+    }
+
+    public function setDimensions(Dimension $dimensions): self
+    {
+        $this->dimensions = $dimensions;
+
+        return $this;
+    }
+
+    public function getItems(): ?array
+    {
+        return $this->items;
+    }
+
+    public function setItems(array $items): self
+    {
+        $this->items = $items;
 
         return $this;
     }

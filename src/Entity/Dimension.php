@@ -14,10 +14,13 @@ class Dimension
     private $id;
 
     #[ORM\Column(type: 'integer')]
-    private $weight;
+    public $weight;
 
     #[ORM\Column(type: 'integer')]
-    private $size;
+    public $size;
+
+    #[ORM\OneToOne(mappedBy: 'dimension', targetEntity: ParcelJob::class, cascade: ['persist', 'remove'])]
+    public $parcelJob;
 
     public function getId(): ?int
     {
@@ -44,6 +47,23 @@ class Dimension
     public function setSize(int $size): self
     {
         $this->size = $size;
+
+        return $this;
+    }
+
+    public function getParcelJob(): ?ParcelJob
+    {
+        return $this->parcelJob;
+    }
+
+    public function setParcelJob(ParcelJob $parcelJob): self
+    {
+        // set the owning side of the relation if necessary
+        if ($parcelJob->getDimension() !== $this) {
+            $parcelJob->setDimension($this);
+        }
+
+        $this->parcelJob = $parcelJob;
 
         return $this;
     }

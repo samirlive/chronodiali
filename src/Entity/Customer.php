@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CustomerRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CustomerRepository::class)]
@@ -16,13 +18,13 @@ class Customer
     private $id;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $name;
+    public $name;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $phone_number;
+    public $phone_number;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $email;
+    public $email;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $address1;
@@ -36,11 +38,23 @@ class Customer
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $postcode;
 
+    #[ORM\ManyToOne(targetEntity: Address::class, inversedBy: 'customers')]
+    public $address;
 
-    public function __construct()
+    #[ORM\OneToMany(mappedBy: 'from', targetEntity: Data::class, orphanRemoval: true)]
+    private $data;
+
+    #[ORM\OneToMany(mappedBy: 'to', targetEntity: Data::class, orphanRemoval: true)]
+    private $dataTo;
+
+
+    public function __construct(/*string $name*/)
     {
 
         $this->country = "MA";
+        //$this->name = $name;
+        $this->data = new ArrayCollection();
+        $this->dataTo = new ArrayCollection(); 
         
     }
 
@@ -129,6 +143,78 @@ class Customer
     public function setPostcode(?string $postcode): self
     {
         $this->postcode = $postcode;
+
+        return $this;
+    }
+
+    public function getAddress(): ?Address
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?Address $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Data>
+     */
+    public function getData(): Collection
+    {
+        return $this->data;
+    }
+
+    public function addData(Data $data): self
+    {
+        if (!$this->data->contains($data)) {
+            $this->data[] = $data;
+            $data->setFrom($this);
+        }
+
+        return $this;
+    }
+
+    public function removeData(Data $data): self
+    {
+        if ($this->data->removeElement($data)) {
+            // set the owning side to null (unless already changed)
+            if ($data->getFrom() === $this) {
+                $data->setFrom(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Data>
+     */
+    public function getDataTo(): Collection
+    {
+        return $this->dataTo;
+    }
+
+    public function addDataTo(Data $dataTo): self
+    {
+        if (!$this->dataTo->contains($dataTo)) {
+            $this->dataTo[] = $dataTo;
+            $dataTo->setTo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDataTo(Data $dataTo): self
+    {
+        if ($this->dataTo->removeElement($dataTo)) {
+            // set the owning side to null (unless already changed)
+            if ($dataTo->getTo() === $this) {
+                $dataTo->setTo(null);
+            }
+        }
 
         return $this;
     }
